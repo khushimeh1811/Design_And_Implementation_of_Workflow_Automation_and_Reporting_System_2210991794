@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <h1 class="mb-4">Workflow Automation & Audit</h1>
+      <p class="lead">
+        Upload your GOLD dataset and either a Salto or Sesam dataset, then execute the automated audit.
+      </p>
+
+      <form method="post" action="{{ url_for('run_workflow') }}" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label class="form-label">Select workflow type</label>
+          <select class="form-select" name="workflow_type" required>
+            <option value="" selected disabled>Choose workflow</option>
+            <option value="salto">Salto Audit (Gold + Salto)</option>
+            <option value="sesam">Sesam Audit (Gold + Sesam)</option>
+          </select>
+          <div class="form-text">
+            Salto uses a separate aggregation logic; Sesam uses a one-to-one merge on <code>order number</code>.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">GOLD Dataset</label>
+          <input class="form-control" type="file" name="gold_file" accept=".xlsx,.xls,.csv" required />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Salto / Sesam Dataset</label>
+          <input class="form-control" type="file" name="other_file" accept=".xlsx,.xls,.csv" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Run Audit</button>
+      </form>
+
+      <hr class="my-5" />
+
+      <div class="alert alert-info">
+        <h5>How to use</h5>
+        <ul class="mb-0">
+          <li>Upload the latest extracted dataset for GOLD and the corresponding Salto / Sesam export.</li>
+          <li>The system will run the audit rules and produce an <code>.xlsx</code> report with details + summary sheet.</li>
+          <li>Download the report and use it for documentation, auditing, or feeding into a reporting dashboard.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock %}

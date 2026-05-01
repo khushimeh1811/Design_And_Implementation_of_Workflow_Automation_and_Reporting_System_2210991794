@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-xl-6">
+      <div class="card shadow border-success">
+        <div class="card-header bg-success text-white text-center">
+          <h4 class="card-title mb-0">
+            <i class="bi bi-check-circle-fill me-2"></i>Audit Completed
+          </h4>
+        </div>
+        <div class="card-body text-center">
+          <div class="mb-4">
+            <i class="bi bi-file-earmark-spreadsheet display-1 text-success"></i>
+          </div>
+          <h5 class="card-title">{{ workflow_type|capitalize }} Audit</h5>
+          <p class="card-text text-muted">Generated at: <strong>{{ generated_at }}</strong></p>
+          <div class="d-grid gap-2">
+            <a class="btn btn-success btn-lg" href="{{ url_for('download_file', filename=output_file) }}">
+              <i class="bi bi-download me-2"></i>Download Report (Excel)
+            </a>
+            <a class="btn btn-outline-secondary" href="{{ url_for('dashboard') }}">
+              <i class="bi bi-house-door me-2"></i>Back to Dashboard
+            </a>
+          </div>
+        </div>
+        <div class="card-footer text-center text-muted small">
+          Tip: Use the Excel report as a data source for Power BI dashboards.
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

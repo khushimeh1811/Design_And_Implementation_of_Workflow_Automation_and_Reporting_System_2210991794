@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2 class="page-title mb-1">Audit History</h2>
+<p class="page-subtitle mb-4">Review previous runs</p>
+
+<div class="card p-3">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Workflow</th>
+          <th>Status</th>
+          <th>Started</th>
+          <th>Finished</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for run in runs %}
+        <tr>
+          <td>{{ run.id }}</td>
+          <td>{{ run.workflow_type }}</td>
+          <td>{{ run.status }}</td>
+          <td>{{ run.started_at }}</td>
+          <td>{{ run.finished_at }}</td>
+          <td>
+            <a class="btn btn-sm btn-outline-primary" href="{{ url_for('download_file', filename=run.output_filename) }}">Excel</a>
+            <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('run_json', run_id=run.id) }}">JSON</a>
+            <a class="btn btn-sm btn-outline-dark" href="{{ url_for('run_errors', run_id=run.id) }}">Errors</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2 class="page-title mb-4">Run New Audit</h2>
+
+<div class="card p-4">
+<form method="post" action="{{ url_for('run_workflow') }}" enctype="multipart/form-data">
+
+  <div class="mb-3">
+    <label>Workflow Type</label>
+    <select class="form-select" name="workflow_type" required>
+      <option disabled selected>Choose workflow</option>
+      <option value="salto">Salto</option>
+      <option value="sesam">Sesam</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Gold Dataset</label>
+    <input type="file" class="form-control" name="gold_file" required>
+  </div>
+
+  <div class="mb-3">
+    <label>Other Dataset</label>
+    <input type="file" class="form-control" name="other_file" required>
+  </div>
+
+  <div class="text-end">
+    <button class="btn btn-primary">Execute</button>
+  </div>
+
+</form>
+</div>
+
+{% endblock %}
